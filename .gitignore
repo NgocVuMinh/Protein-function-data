@@ -1,2 +1,6 @@
 .git
 .ipynb_checkpoints
+__pycache__/
+*.pyc
+*.log
+.env

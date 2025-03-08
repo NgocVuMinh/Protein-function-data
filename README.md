@@ -1,7 +1,26 @@
 # Data preparation for DeepGOSE training
 
+
+### Dependencies
+
+To prepare the datasets from scratch, a GPU will be need to generate ESM embeddings. Please install [DIAMOND](https://github.com/bbuchfink/diamond) and run ```pip install -r requirements.txt``` for other requirements.
+
+However, if you're only interested in GO specificity, these are needed:
+```
+pandas
+numpy
+networkx
+nxontology
+pronto
+matplotlib
+scipy
+seaborn
+statsmodels
+```
+
+
 ### Prepared data
-You can download all the datasets I prepared and used for model training from this [link](https://drive.google.com/file/d/1HYVDtIwJfZSWouZgZeTpAzqGp1XsuJU4/view?usp=sharing) (about 5.3Gb). Please decompress and place this "data" folder in the current repository.
+You can download the datasets (experimental only) that I prepared and used for model training from this [link](https://drive.google.com/file/d/1HYVDtIwJfZSWouZgZeTpAzqGp1XsuJU4/view?usp=sharing) (about 5.3Gb). Please decompress and place this "data" folder in the current repository.
 
 Alternatively, you can download the raw protein data from UniProt/SwissProt (see the Data sources section below), place it in a new folder ```data/```, and run the following commands (or simply run ```./run.sh```):
 
@@ -16,11 +35,10 @@ Parse sequences into fasta files to run DIAMOND:
 python pkl2fasta.py
 ```
 
-Run DIAMOND (later: DeepGOSE split the data based on sequence similarity)
+Run DIAMOND (the data is later split into train-valid-test sets based on sequence similarity)
 ```
 diamond makedb --in data/sativa_exp.fa --db data/sativa_exp.dmnd
 diamond blastp --very-sensitive -d data/sativa_exp.dmnd -q data/sativa_exp.fa --outfmt 6 qseqid sseqid bitscore pident > data/sativa_exp.sim
-
 
 diamond makedb --in data/thaliana_exp.fa --db data/thaliana_exp.dmnd
 diamond blastp --very-sensitive -d data/thaliana_exp.dmnd -q data/thaliana_exp.fa --outfmt 6 qseqid sseqid bitscore pident > data/thaliana_exp.sim
@@ -37,7 +55,7 @@ Getting PPI network information from STRING
 python ppi.py 
 ```
 
-Getting ESM embeddings
+Getting ESM embeddings, this requires a GPU
 ```
 python esm2.py 
 ```
@@ -55,7 +73,7 @@ python split_ontology.py -pre swissprot_exp -df data/swissprot_exp.pkl -sf data/
 
 The datasets were generated from: 
 
-- UniProtKB/SwissProt ([version 2024_03](https://ftp.uniprot.org/pub/databases/uniprot/previous_releases/), in my latest report I mistakenly referred to this as 2024-07-22, which is the last-modified date, not the version name). The actual file used to generate the dataset is named ```uniprot_sprot.dat.gz```, which is stored in a compressed folder [uniprot_sprot-only2024_03.tar.gz](https://ftp.uniprot.org/pub/databases/uniprot/previous_releases/release-2024_03/knowledgebase/uniprot_sprot-only2024_03.tar.gz)
+- UniProtKB/SwissProt ([version 2024_03](https://ftp.uniprot.org/pub/databases/uniprot/previous_releases/), in my latest report I referred to this as 2024-07-22, which is the last-modified date, not the version name). The actual file used to generate the dataset is named ```uniprot_sprot.dat.gz```, which is stored in a compressed folder [uniprot_sprot-only2024_03.tar.gz](https://ftp.uniprot.org/pub/databases/uniprot/previous_releases/release-2024_03/knowledgebase/uniprot_sprot-only2024_03.tar.gz)
 
     Please decompress and place the necessary file in the ```data``` folder
 

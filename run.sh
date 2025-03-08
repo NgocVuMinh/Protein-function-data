@@ -14,6 +14,9 @@ diamond blastp --very-sensitive -d data/thaliana_exp.dmnd -q data/thaliana_exp.f
 diamond makedb --in data/plant_exp.fa --db data/plant_exp.dmnd
 diamond blastp --very-sensitive -d data/plant_exp.dmnd -q data/plant_exp.fa --outfmt 6 qseqid sseqid bitscore pident > data/plant_exp.sim
 
+diamond makedb --in data/swissprot_exp.fa --db data/swissprot_exp.dmnd
+diamond blastp --very-sensitive -d data/swissprot_exp.dmnd -q data/swissprot_exp.fa --outfmt 6 qseqid sseqid bitscore pident > data/swissprot_exp.sim
+
 # Getting PPI network information from STRING
 python ppi.py 
 
@@ -24,7 +27,4 @@ python esm2.py
 python split_ontology.py -pre sativa_exp -df data/sativa_exp.pkl -sf data/sativa_exp.sim
 python split_ontology.py -pre thaliana_exp -df data/thaliana_exp.pkl -sf data/thaliana_exp.sim
 python split_ontology.py -pre plant_exp -df data/plant_exp.pkl -sf data/plant_exp.sim
-
-python ppi_save_graph.py -pre sativa_exp
-python ppi_save_graph.py -pre thaliana_exp
-python ppi_save_graph.py -pre plant_exp
+python split_ontology.py -pre swissprot_exp -df data/swissprot_exp.pkl -sf data/swissprot_exp.sim

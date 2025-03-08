@@ -17,9 +17,9 @@ from deepgo.utils import (
 @ck.option(
     "--sim-file", "-sf", default="data/sativa_exp.sim", help="Sequence similarity generated with Diamond")
 
-def main(prefix, go, data_file, sim_file):
+def main(prefix, data_file, sim_file):
     
-    go = Ontology("data/go.obo", with_rels=True)
+    go = Ontology("go.obo", with_rels=True)
 
     df = pd.read_pickle(data_file)
 

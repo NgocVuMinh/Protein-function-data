@@ -59,3 +59,4 @@ if __name__ == '__main__':
     main("data/sativa_exp.pkl") # overwriting the input file
     main("data/thaliana_exp.pkl") 
     main("data/plant_exp.pkl")
+    main("data/swissprot_exp.pkl")

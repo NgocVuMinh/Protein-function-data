@@ -16,7 +16,7 @@ from Bio.SeqRecord import SeqRecord
 
 
 # Load ontologies
-go = Ontology("data/go.obo", with_rels=True)
+go = Ontology("go.obo", with_rels=True)
 
 # Load SwissProt
 swissprot_file = "data/uniprot_sprot.dat.gz"
@@ -109,4 +109,5 @@ print(f"Combined (exp): {plant_exp.shape[0]}")
 thaliana_exp.to_pickle("data/thaliana_exp.pkl")
 sativa_exp.to_pickle("data/sativa_exp.pkl")
 plant_exp.to_pickle("data/plant_exp.pkl")
+df_exp.to_pickle("data/swissprot_exp.pkl")
 

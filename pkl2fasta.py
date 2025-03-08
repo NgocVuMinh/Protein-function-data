@@ -18,3 +18,4 @@ if __name__ == "__main__":
     main("data/thaliana_exp.pkl", "data/thaliana_exp.fa")
     main("data/sativa_exp.pkl", "data/sativa_exp.fa")
     main("data/plant_exp.pkl", "data/plant_exp.fa")
+    main("data/swissprot_exp.pkl", "data/swissprot_exp.fa")
